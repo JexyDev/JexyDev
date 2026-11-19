@@ -1,0 +1,47 @@
+name: Synchronize Telemetry
+
+on:
+  schedule:
+    # Runs daily at 00:00 UTC (07:00 WIB)
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: 'Manual trigger reason (optional)'
+        required: false
+        default: 'Manual synchronization requested.'
+
+permissions:
+  contents: write
+
+jobs:
+  sync-telemetry:
+    name: Update README Telemetry Block
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run telemetry update script
+        run: node scripts/update-telemetry.mjs
+
+      - name: Commit changes if README was updated
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "JexyDev Telemetry Bot"
+          git add README.md
+          if git diff --cached --quiet; then
+            echo "No changes to commit. README.md is already synchronized."
+          else
+            git commit -m "chore(telemetry): synchronize studio telemetry [skip ci]"
+            git push
+            echo "README.md telemetry block updated and pushed."
+          fi
