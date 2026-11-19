@@ -108,12 +108,12 @@ The studio operates on a continuous autonomous loop governed by **Hermes** (Lead
 ## Live 3D Showcase
 
 <p align="center">
-  <a href="https://jexydev-3d-studio.vercel.app" target="_blank">
-    <img src="https://img.shields.io/badge/🚀%20ENTER%20AUTONOMOUS%203D%20STUDIO-jexydev--3d--studio.vercel.app-38BDF8?style=for-the-badge&labelColor=0B1120&color=38BDF8" alt="Enter JexyDev 3D Studio"/>
+  <a href="https://jexydev.github.io/jexydev-3d-studio/" target="_blank">
+    <img src="https://img.shields.io/badge/🚀%20ENTER%20AUTONOMOUS%203D%20STUDIO-jexydev.github.io%2Fjexydev--3d--studio-38BDF8?style=for-the-badge&labelColor=0B1120&color=38BDF8" alt="Enter JexyDev 3D Studio"/>
   </a>
 </p>
 
-> Experience the autonomous engineering pipeline as an interactive 3D scene — observe Hermes orchestrate agents in real time, dispatch custom tasks, and inspect each agent's live telemetry.
+> Experience the autonomous engineering pipeline as an interactive 3D scene — observe Hermes orchestrate agents in real time, dispatch custom tasks, and inspect each agent's live telemetry. Live production deployment: **[jexydev.github.io/jexydev-3d-studio](https://jexydev.github.io/jexydev-3d-studio/)**
 
 ---
 
