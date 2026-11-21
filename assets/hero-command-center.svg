@@ -120,9 +120,9 @@
     <!-- Role line -->
     <g class="fi2">
       <rect x="58" y="208" width="200" height="2" fill="url(#cyanG)"/>
-      <text x="58" y="232" class="text-sans" font-size="14" fill="#94A3B8" letter-spacing=".5">Fullstack Engineer</text>
-      <text x="206" y="232" class="text-sans" font-size="14" fill="#475569"> &amp; </text>
-      <text x="230" y="232" class="text-sans" font-size="14" fill="#38BDF8" font-weight="600" letter-spacing=".3">Autonomous AI Systems Architect</text>
+      <text x="58" y="232" class="text-sans" font-size="14" fill="#94A3B8" letter-spacing=".5">Fullstack Systems Engineer</text>
+      <text x="248" y="232" class="text-sans" font-size="14" fill="#475569"> · </text>
+      <text x="265" y="232" class="text-sans" font-size="14" fill="#38BDF8" font-weight="600" letter-spacing=".3">Pragmatic Architect &amp; IoT Builder</text>
     </g>
 
     <!-- Tags -->
@@ -177,7 +177,7 @@
     <g class="mi3">
       <text x="868" y="202" class="text-mono" font-size="9" fill="#64748B" letter-spacing="1">PRODUCTION SYSTEMS</text>
       <text x="868" y="218" class="text-mono" font-size="9" fill="#38BDF8">▸ BERSEKA</text>
-      <text x="940" y="218" class="text-mono" font-size="9" fill="#64748B">727 endpoints · 83 Prisma models</text>
+      <text x="940" y="218" class="text-mono" font-size="9" fill="#64748B">659 endpoints · 83 Prisma models</text>
       <text x="868" y="234" class="text-mono" font-size="9" fill="#10B981">▸ BITANIC</text>
       <text x="932" y="234" class="text-mono" font-size="9" fill="#64748B">IoT LMS · Laravel 12 · PostgreSQL 17</text>
       <text x="868" y="250" class="text-mono" font-size="9" fill="#A78BFA">▸ BOGOR TOLO</text>
