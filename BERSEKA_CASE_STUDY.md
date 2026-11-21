@@ -17,7 +17,7 @@ Faced with the challenge of unifying Kota Bandung's fragmented municipal waste s
 - **83 relational domain models** in Prisma ORM (1,967 schema lines).
 - **659 documented REST API endpoints** distributed over 54 domain route controllers.
 - **302,189 lines of strict TypeScript** spanning backend services, background workers, and a 67-view React 18 client.
-- **4,119 Git commits** managed through a rigorous 3-tier branch strategy (`dev → staging → main`) with zero-downtime VPS CI/CD pipelines.
+- **3,333 Main Branch Commits (4,119 Total across branches)** managed through a rigorous 3-tier branch strategy (`dev → staging → main`) with zero-downtime VPS CI/CD pipelines.
 
 ---
 
@@ -27,8 +27,8 @@ Every number below is extracted directly from production repositories and verifi
 
 | Architecture Metric | Verified Production Value | Technical Significance |
 |:---|:---|:---|
-| **Total Git Commits** | **4,119 commits** | Extreme velocity over a 5-month sprint (avg. 28+ commits/day) |
-| **Personal Contribution (`JexyDev`)** | **~1,949 commits (37%+)** | Lead architect, lead API designer, and primary code reviewer |
+| **Total Git Commits** | **3,333 Main / 4,119 Branch Commits** | Extreme velocity over a 5-month sprint (avg. 28+ commits/day) |
+| **Engineering Contribution (`JexyDev`)** | **~3,000+ Commits Authored, Committed & Merged** | Lead system architect, primary code author, and technical driver across the monorepo |
 | **Prisma Relational Models** | **83 models** | Cross-linked relational schema with foreign key integrity and indexes |
 | **Database Columns** | **951+ columns** | 5-tier spatial hierarchies, multi-tenant scopes, financial ledgers |
 | **REST API Endpoints** | **659 endpoints** | Scoped across 54 route modules with middleware validation |
