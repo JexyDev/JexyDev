@@ -1,249 +1,279 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="360" viewBox="0 0 1200 360">
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="450" viewBox="0 0 1200 450">
   <defs>
     <style>
-      .tm { font-family:'JetBrains Mono','Courier New',monospace; }
-      .ts { font-family:'Inter','Segoe UI',Arial,sans-serif; }
-      @keyframes gridF { 0%,100%{opacity:.06} 50%{opacity:.14} }
-      @keyframes pulse2 { 0%,100%{opacity:1;r:6} 50%{opacity:.4;r:9} }
-      @keyframes pulse3 { 0%,100%{opacity:.8} 50%{opacity:.2} }
-      @keyframes orbit { 0%{transform:rotate(0deg)} 100%{transform:rotate(360deg)} }
-      @keyframes orbit2 { 0%{transform:rotate(360deg)} 100%{transform:rotate(0deg)} }
-      @keyframes packetMove1 { 0%{offset-distance:0%;opacity:0} 10%{opacity:1} 90%{opacity:1} 100%{offset-distance:100%;opacity:0} }
-      @keyframes packetMove2 { 0%{offset-distance:0%;opacity:0} 10%{opacity:1} 90%{opacity:1} 100%{offset-distance:100%;opacity:0} }
-      @keyframes packetMove3 { 0%{offset-distance:0%;opacity:0} 10%{opacity:1} 90%{opacity:1} 100%{offset-distance:100%;opacity:0} }
-      @keyframes packetMove4 { 0%{offset-distance:0%;opacity:0} 10%{opacity:1} 90%{opacity:1} 100%{offset-distance:100%;opacity:0} }
-      @keyframes glow { 0%,100%{filter:drop-shadow(0 0 6px #38BDF8)} 50%{filter:drop-shadow(0 0 16px #38BDF8)} }
-      @keyframes nodeGlow { 0%,100%{filter:drop-shadow(0 0 4px currentColor)} 50%{filter:drop-shadow(0 0 12px currentColor)} }
-      @keyframes stageFlow { 0%{opacity:.3;transform:translateX(0)} 50%{opacity:1;transform:translateX(6px)} 100%{opacity:.3;transform:translateX(0)} }
-      @keyframes fadeSlideIn { 0%{opacity:0;transform:translateY(10px)} 100%{opacity:1;transform:translateY(0)} }
-      @keyframes ringRotate { 0%{transform:rotate(0deg)} 100%{transform:rotate(360deg)} }
-      @keyframes ringRotate2 { 0%{transform:rotate(0deg)} 100%{transform:rotate(-360deg)} }
-      .grid-h { animation:gridF 4s ease-in-out infinite; }
-      .grid-v { animation:gridF 4s ease-in-out infinite 2s; }
-      .h-core { animation:glow 2.5s ease-in-out infinite; }
-      .r1 { transform-origin:600px 180px; animation:ringRotate 8s linear infinite; }
-      .r2 { transform-origin:600px 180px; animation:ringRotate2 12s linear infinite; }
-      .nd { animation:nodeGlow 3s ease-in-out infinite; }
-      .pk1 { offset-path:path('M600,180 Q400,80 220,140'); animation:packetMove1 2.4s linear infinite; }
-      .pk2 { offset-path:path('M600,180 Q500,60 320,100'); animation:packetMove1 2.4s linear infinite .6s; }
-      .pk3 { offset-path:path('M600,180 Q700,60 880,100'); animation:packetMove2 2.4s linear infinite .3s; }
-      .pk4 { offset-path:path('M600,180 Q800,80 980,140'); animation:packetMove2 2.4s linear infinite 1.2s; }
-      .pk5 { offset-path:path('M600,180 Q500,300 320,260'); animation:packetMove3 2.4s linear infinite .9s; }
-      .pk6 { offset-path:path('M600,180 Q500,300 220,220'); animation:packetMove3 2.4s linear infinite 1.8s; }
-      .pk7 { offset-path:path('M600,180 Q700,300 880,260'); animation:packetMove4 2.4s linear infinite .4s; }
-      .pk8 { offset-path:path('M600,180 Q700,300 980,220'); animation:packetMove4 2.4s linear infinite 1.4s; }
-      .stage-arr { animation:stageFlow 1.6s ease-in-out infinite; }
-      .stage-arr2 { animation:stageFlow 1.6s ease-in-out infinite .4s; }
-      .stage-arr3 { animation:stageFlow 1.6s ease-in-out infinite .8s; }
-      .stage-arr4 { animation:stageFlow 1.6s ease-in-out infinite 1.2s; }
-      .fsi { animation:fadeSlideIn 1s ease forwards; opacity:0; }
-      .fsi2 { animation:fadeSlideIn 1s ease forwards; animation-delay:.4s; opacity:0; }
-      .fsi3 { animation:fadeSlideIn 1s ease forwards; animation-delay:.8s; opacity:0; }
-      .fsi4 { animation:fadeSlideIn 1s ease forwards; animation-delay:1.2s; opacity:0; }
-      .fsi5 { animation:fadeSlideIn 1s ease forwards; animation-delay:1.6s; opacity:0; }
+      .mono { font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace; }
+      .sans { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', Roboto, sans-serif; }
+      @keyframes pulseGlow { 0%, 100% { opacity: 0.95; } 50% { opacity: 0.45; } }
+      @keyframes laserStream1 { 0% { stroke-dashoffset: 48; } 100% { stroke-dashoffset: 0; } }
+      @keyframes laserStream2 { 0% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: 48; } }
+      @keyframes coreBreath { 0%, 100% { transform: scale(1); opacity: 0.9; } 50% { transform: scale(1.04); opacity: 1; } }
+      .live-pulse { animation: pulseGlow 2s ease-in-out infinite; }
+      .laser-in { stroke-dasharray: 10 6; animation: laserStream1 1.2s linear infinite; }
+      .laser-out { stroke-dasharray: 10 6; animation: laserStream2 1.2s linear infinite; }
     </style>
-    <linearGradient id="bg2" x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox">
-      <stop offset="0%" stop-color="#0B1120"/><stop offset="100%" stop-color="#0F172A"/>
+
+    <!-- Gradients -->
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#050811"/>
+      <stop offset="40%" stop-color="#0A1120"/>
+      <stop offset="100%" stop-color="#0F172A"/>
     </linearGradient>
-    <linearGradient id="cG2" x1="0" y1="0" x2="1" y2="0" gradientUnits="objectBoundingBox">
-      <stop offset="0%" stop-color="#38BDF8" stop-opacity="0"/>
-      <stop offset="30%" stop-color="#38BDF8"/><stop offset="100%" stop-color="#7DD3FC"/>
+
+    <linearGradient id="cyanGlow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0284C7"/>
+      <stop offset="50%" stop-color="#38BDF8"/>
+      <stop offset="100%" stop-color="#7DD3FC"/>
     </linearGradient>
-    <linearGradient id="eG" x1="0" y1="0" x2="1" y2="0" gradientUnits="objectBoundingBox">
-      <stop offset="0%" stop-color="#10B981" stop-opacity="0"/>
-      <stop offset="50%" stop-color="#10B981"/><stop offset="100%" stop-color="#34D399"/>
+
+    <linearGradient id="emeraldGlow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#059669"/>
+      <stop offset="50%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#34D399"/>
     </linearGradient>
-    <!-- Node gradients -->
-    <radialGradient id="hermesG" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#1E3A5F"/><stop offset="100%" stop-color="#0B1120"/>
-    </radialGradient>
-    <radialGradient id="feG" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#064E3B"/><stop offset="100%" stop-color="#0B1120"/>
-    </radialGradient>
-    <radialGradient id="beG" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#2D1B69"/><stop offset="100%" stop-color="#0B1120"/>
-    </radialGradient>
-    <radialGradient id="qaG" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#451A03"/><stop offset="100%" stop-color="#0B1120"/>
-    </radialGradient>
-    <radialGradient id="dvG" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#500724"/><stop offset="100%" stop-color="#0B1120"/>
-    </radialGradient>
-    <radialGradient id="prodG" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#1E3A5F"/><stop offset="100%" stop-color="#0B1120"/>
-    </radialGradient>
-    <clipPath id="clip1"><rect width="1200" height="360"/></clipPath>
-    <filter id="glow2" x="-80%" y="-80%" width="260%" height="260%">
-      <feGaussianBlur stdDeviation="4" result="b"/>
-      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+
+    <linearGradient id="violetGlow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#6D28D9"/>
+      <stop offset="50%" stop-color="#8B5CF6"/>
+      <stop offset="100%" stop-color="#C4B5FD"/>
+    </linearGradient>
+
+    <linearGradient id="amberGlow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#D97706"/>
+      <stop offset="50%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#FCD34D"/>
+    </linearGradient>
+
+    <linearGradient id="roseGlow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#BE185D"/>
+      <stop offset="50%" stop-color="#EC4899"/>
+      <stop offset="100%" stop-color="#F472B6"/>
+    </linearGradient>
+
+    <!-- 3D Card Gradients -->
+    <linearGradient id="cardGradDark" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#131F33" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#0A101D" stop-opacity="0.98"/>
+    </linearGradient>
+
+    <linearGradient id="coreTopGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1E3A5F"/>
+      <stop offset="100%" stop-color="#0F243E"/>
+    </linearGradient>
+
+    <!-- Filters -->
+    <filter id="dropShadow3D" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="10" stdDeviation="10" flood-color="#000000" flood-opacity="0.7"/>
     </filter>
-    <filter id="glow3" x="-100%" y="-100%" width="300%" height="300%">
-      <feGaussianBlur stdDeviation="8" result="b"/>
-      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+
+    <filter id="neonCore" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
     </filter>
-    <marker id="arrowC" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-      <path d="M0,0 L10,5 L0,10 z" fill="#38BDF8" opacity=".6"/>
-    </marker>
-    <marker id="arrowE" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-      <path d="M0,0 L10,5 L0,10 z" fill="#10B981" opacity=".6"/>
-    </marker>
+
+    <filter id="ambientFloor" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur stdDeviation="18" flood-color="#0284C7" flood-opacity="0.15"/>
+    </filter>
   </defs>
 
-  <g clip-path="url(#clip1)">
-    <!-- BG -->
-    <rect width="1200" height="360" fill="url(#bg2)"/>
+  <!-- Canvas Background -->
+  <rect width="1200" height="450" fill="url(#bgGrad)"/>
 
-    <!-- Grid -->
-    <g class="grid-h" stroke="#38BDF8" stroke-width=".5">
-      <line x1="0" y1="40" x2="1200" y2="40"/><line x1="0" y1="80" x2="1200" y2="80"/>
-      <line x1="0" y1="120" x2="1200" y2="120"/><line x1="0" y1="160" x2="1200" y2="160"/>
-      <line x1="0" y1="200" x2="1200" y2="200"/><line x1="0" y1="240" x2="1200" y2="240"/>
-      <line x1="0" y1="280" x2="1200" y2="280"/><line x1="0" y1="320" x2="1200" y2="320"/>
-    </g>
-    <g class="grid-v" stroke="#38BDF8" stroke-width=".5">
-      <line x1="100" y1="0" x2="100" y2="360"/><line x1="200" y1="0" x2="200" y2="360"/>
-      <line x1="300" y1="0" x2="300" y2="360"/><line x1="400" y1="0" x2="400" y2="360"/>
-      <line x1="500" y1="0" x2="500" y2="360"/><line x1="600" y1="0" x2="600" y2="360"/>
-      <line x1="700" y1="0" x2="700" y2="360"/><line x1="800" y1="0" x2="800" y2="360"/>
-      <line x1="900" y1="0" x2="900" y2="360"/><line x1="1000" y1="0" x2="1000" y2="360"/>
-      <line x1="1100" y1="0" x2="1100" y2="360"/>
-    </g>
-
-    <!-- Left accent -->
-    <rect x="0" y="0" width="4" height="360" fill="url(#cG2)"/>
-
-    <!-- Top bar -->
-    <rect x="0" y="0" width="1200" height="32" fill="#0F172A" opacity=".92"/>
-    <text x="20" y="21" class="tm" font-size="10" fill="#38BDF8" letter-spacing="2">JEXYDEV // FULLSTACK ENGINEERING LIFECYCLE</text>
-    <text x="700" y="21" class="tm" font-size="10" fill="#475569">DISCOVER → PLAN → IMPLEMENT → VERIFY → AUDIT → DEPLOY</text>
-
-    <!-- Connection paths from Hermes to agents -->
-    <!-- To Frontend (top-left) -->
-    <path d="M600,180 Q400,80 220,140" fill="none" stroke="#10B981" stroke-width="1.5" stroke-dasharray="6,4" opacity=".35" marker-end="url(#arrowE)"/>
-    <!-- To Backend (top-right) -->
-    <path d="M600,180 Q800,80 980,140" fill="none" stroke="#A78BFA" stroke-width="1.5" stroke-dasharray="6,4" opacity=".35"/>
-    <!-- To QA/QC (bottom-left) -->
-    <path d="M600,180 Q400,280 220,220" fill="none" stroke="#FCD34D" stroke-width="1.5" stroke-dasharray="6,4" opacity=".35"/>
-    <!-- To DevOps (bottom-right) -->
-    <path d="M600,180 Q800,280 980,220" fill="none" stroke="#F9A8D4" stroke-width="1.5" stroke-dasharray="6,4" opacity=".35"/>
-    <!-- To Production (right) -->
-    <path d="M600,180 Q780,180 920,290" fill="none" stroke="#38BDF8" stroke-width="1.5" stroke-dasharray="6,4" opacity=".35" marker-end="url(#arrowC)"/>
-
-    <!-- Animated data packets -->
-    <circle class="pk1" r="4" fill="#10B981" opacity=".9" filter="url(#glow2)"/>
-    <circle class="pk2" r="3" fill="#10B981" opacity=".7" filter="url(#glow2)"/>
-    <circle class="pk3" r="4" fill="#A78BFA" opacity=".9" filter="url(#glow2)"/>
-    <circle class="pk4" r="3" fill="#A78BFA" opacity=".7" filter="url(#glow2)"/>
-    <circle class="pk5" r="4" fill="#FCD34D" opacity=".9" filter="url(#glow2)"/>
-    <circle class="pk6" r="3" fill="#FCD34D" opacity=".7" filter="url(#glow2)"/>
-    <circle class="pk7" r="4" fill="#F9A8D4" opacity=".9" filter="url(#glow2)"/>
-    <circle class="pk8" r="3" fill="#F9A8D4" opacity=".7" filter="url(#glow2)"/>
-
-    <!-- ===== HERMES CORE NODE ===== -->
-    <g class="h-core fsi" transform="translate(600,180)">
-      <!-- Outer glow ring -->
-      <circle r="52" fill="none" stroke="#38BDF8" stroke-width="1" opacity=".2" filter="url(#glow3)"/>
-      <!-- Rotating ring 1 -->
-      <g class="r1">
-        <circle cx="600" cy="180" r="46" fill="none" stroke="#38BDF8" stroke-width="1" stroke-dasharray="8,16" opacity=".6"/>
-      </g>
-      <!-- Rotating ring 2 -->
-      <g class="r2">
-        <circle cx="600" cy="180" r="38" fill="none" stroke="#7DD3FC" stroke-width=".8" stroke-dasharray="4,20" opacity=".4"/>
-      </g>
-      <!-- Main body -->
-      <circle r="32" fill="url(#hermesG)" stroke="#38BDF8" stroke-width="1.5"/>
-      <!-- Inner glow -->
-      <circle r="22" fill="none" stroke="#38BDF8" stroke-width=".5" opacity=".3"/>
-      <!-- Label -->
-      <text y="-6" class="tm" font-size="10" font-weight="700" fill="#38BDF8" text-anchor="middle" letter-spacing="1">SYSTEMS</text>
-      <text y="8" class="tm" font-size="8" fill="#94A3B8" text-anchor="middle">ARCHITECTURE</text>
-      <text y="20" class="tm" font-size="7" fill="#64748B" text-anchor="middle">END-TO-END LEAD</text>
-    </g>
-
-    <!-- ===== FRONTEND AGENT (top-left) ===== -->
-    <g class="nd fsi2" transform="translate(220,140)" color="#10B981">
-      <circle r="38" fill="#064E3B" stroke="#10B981" stroke-width="1.5" opacity=".3" filter="url(#glow2)"/>
-      <circle r="30" fill="url(#feG)" stroke="#10B981" stroke-width="1.5"/>
-      <text y="-8" class="tm" font-size="9.5" font-weight="700" fill="#10B981" text-anchor="middle" letter-spacing="1">FRONTEND</text>
-      <text y="6" class="tm" font-size="7" fill="#6EE7B7" text-anchor="middle">React · Next.js</text>
-      <text y="17" class="tm" font-size="7" fill="#6EE7B7" text-anchor="middle">Flutter · TS</text>
-    </g>
-    <!-- Frontend label card -->
-    <rect x="80" y="192" width="140" height="38" rx="3" fill="#162032" stroke="#10B981" stroke-width=".8" opacity=".9"/>
-    <text x="150" y="208" class="tm" font-size="8" fill="#6EE7B7" text-anchor="middle">FRONTEND AGENT</text>
-    <text x="150" y="220" class="tm" font-size="7" fill="#64748B" text-anchor="middle">Responsive UI · Cross-Platform</text>
-    <text x="150" y="231" class="tm" font-size="7" fill="#64748B" text-anchor="middle">State Mgmt · Component Arch</text>
-
-    <!-- ===== BACKEND AGENT (top-right) ===== -->
-    <g class="nd fsi2" transform="translate(980,140)" color="#A78BFA">
-      <circle r="38" fill="#2D1B69" stroke="#A78BFA" stroke-width="1.5" opacity=".3" filter="url(#glow2)"/>
-      <circle r="30" fill="url(#beG)" stroke="#A78BFA" stroke-width="1.5"/>
-      <text y="-8" class="tm" font-size="9.5" font-weight="700" fill="#A78BFA" text-anchor="middle" letter-spacing="1">BACKEND</text>
-      <text y="6" class="tm" font-size="7" fill="#C4B5FD" text-anchor="middle">Laravel · Node.js</text>
-      <text y="17" class="tm" font-size="7" fill="#C4B5FD" text-anchor="middle">Prisma · PostgreSQL</text>
-    </g>
-    <!-- Backend label card -->
-    <rect x="980" y="192" width="140" height="38" rx="3" fill="#162032" stroke="#A78BFA" stroke-width=".8" opacity=".9"/>
-    <text x="1050" y="208" class="tm" font-size="8" fill="#C4B5FD" text-anchor="middle">BACKEND AGENT</text>
-    <text x="1050" y="220" class="tm" font-size="7" fill="#64748B" text-anchor="middle">REST · GraphQL · Auth</text>
-    <text x="1050" y="231" class="tm" font-size="7" fill="#64748B" text-anchor="middle">DB Schema · Migrations</text>
-
-    <!-- ===== QA/QC AGENT (bottom-left) ===== -->
-    <g class="nd fsi3" transform="translate(220,220)" color="#FCD34D">
-      <circle r="38" fill="#451A03" stroke="#FCD34D" stroke-width="1.5" opacity=".25" filter="url(#glow2)"/>
-      <circle r="30" fill="url(#qaG)" stroke="#FCD34D" stroke-width="1.5"/>
-      <text y="-8" class="tm" font-size="9.5" font-weight="700" fill="#FCD34D" text-anchor="middle" letter-spacing="1">QA / QC</text>
-      <text y="6" class="tm" font-size="7" fill="#FDE68A" text-anchor="middle">Unit · Integration</text>
-      <text y="17" class="tm" font-size="7" fill="#FDE68A" text-anchor="middle">Regression · Static</text>
-    </g>
-    <!-- QA label card -->
-    <rect x="80" y="272" width="140" height="38" rx="3" fill="#162032" stroke="#FCD34D" stroke-width=".8" opacity=".9"/>
-    <text x="150" y="288" class="tm" font-size="8" fill="#FDE68A" text-anchor="middle">QA / QC AGENT</text>
-    <text x="150" y="300" class="tm" font-size="7" fill="#64748B" text-anchor="middle">Test Suites · Edge Cases</text>
-    <text x="150" y="311" class="tm" font-size="7" fill="#64748B" text-anchor="middle">Merge Gate · Analysis</text>
-
-    <!-- ===== DEVOPS AGENT (bottom-right) ===== -->
-    <g class="nd fsi3" transform="translate(980,220)" color="#F9A8D4">
-      <circle r="38" fill="#500724" stroke="#F9A8D4" stroke-width="1.5" opacity=".25" filter="url(#glow2)"/>
-      <circle r="30" fill="url(#dvG)" stroke="#F9A8D4" stroke-width="1.5"/>
-      <text y="-8" class="tm" font-size="9.5" font-weight="700" fill="#F9A8D4" text-anchor="middle" letter-spacing="1">DEVOPS</text>
-      <text y="6" class="tm" font-size="7" fill="#FBCFE8" text-anchor="middle">Docker · CI/CD</text>
-      <text y="17" class="tm" font-size="7" fill="#FBCFE8" text-anchor="middle">Docs · Pipelines</text>
-    </g>
-    <!-- DevOps label card -->
-    <rect x="980" y="272" width="140" height="38" rx="3" fill="#162032" stroke="#F9A8D4" stroke-width=".8" opacity=".9"/>
-    <text x="1050" y="288" class="tm" font-size="8" fill="#FBCFE8" text-anchor="middle">DEVOPS &amp; DOCS AGENT</text>
-    <text x="1050" y="300" class="tm" font-size="7" fill="#64748B" text-anchor="middle">PRD · SRS · SDD · API Specs</text>
-    <text x="1050" y="311" class="tm" font-size="7" fill="#64748B" text-anchor="middle">Docker · GitHub Actions</text>
-
-    <!-- ===== PRODUCTION DELIVERY (bottom-center) ===== -->
-    <g class="nd fsi4" transform="translate(600,308)">
-      <circle r="28" fill="#1E3A5F" stroke="#38BDF8" stroke-width="2" opacity=".9" filter="url(#glow2)"/>
-      <text y="-5" class="tm" font-size="9" font-weight="700" fill="#38BDF8" text-anchor="middle" letter-spacing="1">PRODUCTION</text>
-      <text y="8" class="tm" font-size="8" fill="#7DD3FC" text-anchor="middle">DELIVERY</text>
-    </g>
-
-    <!-- Pipeline stage flow indicator (bottom) -->
-    <g class="fsi5">
-      <rect x="100" y="338" width="1000" height="16" rx="2" fill="#0F172A" stroke="#1E293B" stroke-width="1"/>
-      <!-- Stage labels with animated arrows -->
-      <text x="145" y="350" class="tm" font-size="8" fill="#64748B" text-anchor="middle">DISCOVER</text>
-      <text x="210" y="351" class="tm stage-arr" font-size="10" fill="#38BDF8" text-anchor="middle">→</text>
-      <text x="265" y="350" class="tm" font-size="8" fill="#64748B" text-anchor="middle">PLAN</text>
-      <text x="315" y="351" class="tm stage-arr2" font-size="10" fill="#38BDF8" text-anchor="middle">→</text>
-      <text x="390" y="350" class="tm" font-size="8" fill="#64748B" text-anchor="middle">IMPLEMENT</text>
-      <text x="455" y="351" class="tm stage-arr3" font-size="10" fill="#38BDF8" text-anchor="middle">→</text>
-      <text x="510" y="350" class="tm" font-size="8" fill="#64748B" text-anchor="middle">VERIFY</text>
-      <text x="560" y="351" class="tm stage-arr" font-size="10" fill="#38BDF8" text-anchor="middle">→</text>
-      <text x="615" y="350" class="tm" font-size="8" fill="#64748B" text-anchor="middle">AUDIT</text>
-      <text x="665" y="351" class="tm stage-arr2" font-size="10" fill="#38BDF8" text-anchor="middle">→</text>
-      <text x="750" y="350" class="tm" font-size="8" fill="#10B981" font-weight="700" text-anchor="middle">DEPLOY</text>
-      <text x="820" y="351" class="tm stage-arr3" font-size="10" fill="#10B981" text-anchor="middle">→</text>
-      <text x="940" y="350" class="tm" font-size="8" fill="#38BDF8" font-weight="700" text-anchor="middle">PRODUCTION LIVE</text>
-    </g>
-
-    <!-- Bottom accent -->
-    <rect x="0" y="354" width="1200" height="6" fill="url(#cG2)" opacity=".5"/>
+  <!-- 3D Isometric Floor Grid -->
+  <g stroke="#1E2E4A" stroke-width="0.7" opacity="0.4">
+    <!-- Converging Perspective Beams -->
+    <line x1="600" y1="190" x2="0" y2="120"/>
+    <line x1="600" y1="190" x2="0" y2="240"/>
+    <line x1="600" y1="190" x2="0" y2="380"/>
+    <line x1="600" y1="190" x2="1200" y2="120"/>
+    <line x1="600" y1="190" x2="1200" y2="240"/>
+    <line x1="600" y1="190" x2="1200" y2="380"/>
+    <!-- Perspective Floor Traverses -->
+    <path d="M 100 370 L 600 340 L 1100 370" fill="none"/>
+    <path d="M 200 310 L 600 290 L 1000 310" fill="none"/>
+    <path d="M 320 250 L 600 240 L 880 250" fill="none"/>
+    <path d="M 420 210 L 600 205 L 780 210" fill="none"/>
   </g>
+
+  <!-- Ambient Light Reflection under Core -->
+  <ellipse cx="600" cy="225" rx="140" ry="35" fill="#0284C7" opacity="0.12" filter="url(#ambientFloor)"/>
+
+  <!-- ================= TOP HEADER HUD BAR ================= -->
+  <g transform="translate(50, 24)">
+    <circle cx="6" cy="6" r="4" fill="#38BDF8" class="live-pulse"/>
+    <text x="20" y="10" class="mono" font-size="12" font-weight="800" fill="#38BDF8" letter-spacing="1.5">JEXYDEV // FULLSTACK SYSTEMS ARCHITECTURE &amp; LIFECYCLE</text>
+    <text x="540" y="10" class="sans" font-size="11" fill="#64748B">│ High-Velocity Production Execution · 3,700+ Verified Commits · ISO/IEC 25010 Standards</text>
+
+    <!-- Top-Right Status -->
+    <rect x="980" y="-5" width="120" height="22" rx="11" fill="#064E3B" stroke="#10B981" stroke-width="0.8"/>
+    <circle cx="994" cy="6" r="3.5" fill="#34D399" class="live-pulse"/>
+    <text x="1006" y="10" class="mono" font-size="10" font-weight="700" fill="#A7F3D0">ACTIVE ONLINE</text>
+  </g>
+  <line x1="50" y1="44" x2="1150" y2="44" stroke="#1E3A5F" stroke-width="1" opacity="0.6"/>
+
+  <!-- ================= 3D PIPELINE DATA CONDUITS (CONVERGING STREAM) ================= -->
+  <!-- Pod 1 (Client) -> Center Core -->
+  <path d="M 380 115 C 480 115, 520 180, 560 180" fill="none" stroke="#1E3A5F" stroke-width="3" opacity="0.5"/>
+  <path d="M 380 115 C 480 115, 520 180, 560 180" fill="none" stroke="url(#cyanGlow)" stroke-width="2.5" class="laser-in"/>
+
+  <!-- Pod 2 (Backend) -> Center Core -->
+  <path d="M 820 115 C 720 115, 680 180, 640 180" fill="none" stroke="#1E3A5F" stroke-width="3" opacity="0.5"/>
+  <path d="M 820 115 C 720 115, 680 180, 640 180" fill="none" stroke="url(#violetGlow)" stroke-width="2.5" class="laser-in"/>
+
+  <!-- Pod 3 (QA/QC) -> Center Core -->
+  <path d="M 380 285 C 480 285, 520 205, 560 200" fill="none" stroke="#1E3A5F" stroke-width="3" opacity="0.5"/>
+  <path d="M 380 285 C 480 285, 520 205, 560 200" fill="none" stroke="url(#amberGlow)" stroke-width="2.5" class="laser-in"/>
+
+  <!-- Pod 4 (DevOps/IoT) -> Center Core -->
+  <path d="M 820 285 C 720 285, 680 205, 640 200" fill="none" stroke="#1E3A5F" stroke-width="3" opacity="0.5"/>
+  <path d="M 820 285 C 720 285, 680 205, 640 200" fill="none" stroke="url(#roseGlow)" stroke-width="2.5" class="laser-in"/>
+
+  <!-- Center Core -> Production Live Delivery -->
+  <path d="M 600 230 L 600 320" fill="none" stroke="#1E3A5F" stroke-width="4" opacity="0.6"/>
+  <path d="M 600 230 L 600 320" fill="none" stroke="url(#emeraldGlow)" stroke-width="3" class="laser-out"/>
+
+  <!-- ================= 4 SPECIALIST ENGINEERING WORKSTATIONS ================= -->
+
+  <!-- NODE 1: TOP-LEFT (CLIENT & MOBILE ARCHITECTURE) -->
+  <g transform="translate(50, 65)" filter="url(#dropShadow3D)">
+    <!-- 3D Card Base with Isometric Bevel -->
+    <rect width="340" height="105" rx="8" fill="url(#cardGradDark)" stroke="#0284C7" stroke-width="1.4"/>
+    <!-- 3D Top Edge Highlight -->
+    <path d="M 8 0 L 332 0" stroke="#38BDF8" stroke-width="2.5"/>
+    <rect x="0" y="0" width="340" height="28" rx="8" fill="#0C1B2F" opacity="0.8"/>
+
+    <!-- Header Badge -->
+    <circle cx="18" cy="14" r="4.5" fill="#38BDF8" class="live-pulse"/>
+    <text x="32" y="18" class="mono" font-size="12" font-weight="800" fill="#38BDF8" letter-spacing="0.5">CLIENT &amp; MOBILE PLATFORMS</text>
+    <rect x="268" y="6" width="58" height="16" rx="4" fill="#0369A1" opacity="0.4"/>
+    <text x="297" y="18" class="mono" font-size="9" font-weight="700" fill="#7DD3FC" text-anchor="middle">POD 01</text>
+
+    <!-- Body Tech Specs -->
+    <text x="16" y="46" class="sans" font-size="13" font-weight="700" fill="#F8FAFC">React 18 · TypeScript · Vite · Flutter · Next.js</text>
+    <text x="16" y="66" class="sans" font-size="11" fill="#94A3B8">Zustand Reactive State · Offline Sync · Leaflet GIS</text>
+    <text x="16" y="84" class="mono" font-size="10.5" fill="#38BDF8">▸ 67 Web Views │ Multi-Role Portals (Citizen/Admin)</text>
+    <text x="16" y="98" class="mono" font-size="9.5" fill="#64748B">Cross-Platform iOS/Android &amp; High-Density Web UI</text>
+  </g>
+
+  <!-- NODE 2: TOP-RIGHT (BACKEND & DISTRIBUTED DATA SYSTEMS) -->
+  <g transform="translate(820, 65)" filter="url(#dropShadow3D)">
+    <rect width="340" height="105" rx="8" fill="url(#cardGradDark)" stroke="#7C3AED" stroke-width="1.4"/>
+    <path d="M 8 0 L 332 0" stroke="#A78BFA" stroke-width="2.5"/>
+    <rect x="0" y="0" width="340" height="28" rx="8" fill="#1B1533" opacity="0.8"/>
+
+    <circle cx="18" cy="14" r="4.5" fill="#A78BFA" class="live-pulse"/>
+    <text x="32" y="18" class="mono" font-size="12" font-weight="800" fill="#C4B5FD" letter-spacing="0.5">BACKEND &amp; DISTRIBUTED DATA</text>
+    <rect x="268" y="6" width="58" height="16" rx="4" fill="#6D28D9" opacity="0.4"/>
+    <text x="297" y="18" class="mono" font-size="9" font-weight="700" fill="#DDD6FE" text-anchor="middle">POD 02</text>
+
+    <text x="16" y="46" class="sans" font-size="13" font-weight="700" fill="#F8FAFC">Node.js / Express · Laravel 12 · PostgreSQL 17</text>
+    <text x="16" y="66" class="sans" font-size="11" fill="#94A3B8">Prisma ORM · Redis 7 Caching · BullMQ Job Queues</text>
+    <text x="16" y="84" class="mono" font-size="10.5" fill="#C4B5FD">▸ 83 Prisma Models │ 659 API Endpoints │ 37 Eloquent</text>
+    <text x="16" y="98" class="mono" font-size="9.5" fill="#64748B">Pessimistic Concurrency Locking &amp; Multi-Tenant Schemas</text>
+  </g>
+
+  <!-- NODE 3: BOTTOM-LEFT (RELIABILITY & QUALITY ASSURANCE LAB) -->
+  <g transform="translate(50, 235)" filter="url(#dropShadow3D)">
+    <rect width="340" height="105" rx="8" fill="url(#cardGradDark)" stroke="#D97706" stroke-width="1.4"/>
+    <path d="M 8 0 L 332 0" stroke="#FBBF24" stroke-width="2.5"/>
+    <rect x="0" y="0" width="340" height="28" rx="8" fill="#26190C" opacity="0.8"/>
+
+    <circle cx="18" cy="14" r="4.5" fill="#FBBF24" class="live-pulse"/>
+    <text x="32" y="18" class="mono" font-size="12" font-weight="800" fill="#FDE68A" letter-spacing="0.5">QUALITY &amp; RELIABILITY LAB</text>
+    <rect x="268" y="6" width="58" height="16" rx="4" fill="#B45309" opacity="0.4"/>
+    <text x="297" y="18" class="mono" font-size="9" font-weight="700" fill="#FEF3C7" text-anchor="middle">POD 03</text>
+
+    <text x="16" y="46" class="sans" font-size="13" font-weight="700" fill="#F8FAFC">Vitest · PHPUnit · Strict Zod Schema · ESLint</text>
+    <text x="16" y="66" class="sans" font-size="11" fill="#94A3B8">Defensive Concurrency · Idempotent APIs · Zero-IDOR</text>
+    <text x="16" y="84" class="mono" font-size="10.5" fill="#FDE68A">▸ 73 Automated Test Suites │ ISO/IEC 25010 Gates</text>
+    <text x="16" y="98" class="mono" font-size="9.5" fill="#64748B">Regression Audits &amp; Strict Pre-Commit Verification</text>
+  </g>
+
+  <!-- NODE 4: BOTTOM-RIGHT (DEVOPS, CLOUD CI/CD & IOT TELEMETRY) -->
+  <g transform="translate(820, 235)" filter="url(#dropShadow3D)">
+    <rect width="340" height="105" rx="8" fill="url(#cardGradDark)" stroke="#DB2777" stroke-width="1.4"/>
+    <path d="M 8 0 L 332 0" stroke="#F472B6" stroke-width="2.5"/>
+    <rect x="0" y="0" width="340" height="28" rx="8" fill="#2A0E1D" opacity="0.8"/>
+
+    <circle cx="18" cy="14" r="4.5" fill="#F472B6" class="live-pulse"/>
+    <text x="32" y="18" class="mono" font-size="12" font-weight="800" fill="#FBCFE8" letter-spacing="0.5">DEVOPS, IOT &amp; CLOUD INFRA</text>
+    <rect x="268" y="6" width="58" height="16" rx="4" fill="#9D174D" opacity="0.4"/>
+    <text x="297" y="18" class="mono" font-size="9" font-weight="700" fill="#FCE7F3" text-anchor="middle">POD 04</text>
+
+    <text x="16" y="46" class="sans" font-size="13" font-weight="700" fill="#F8FAFC">Docker · GitHub Actions CI/CD · Modbus RS485 RTU</text>
+    <text x="16" y="66" class="sans" font-size="11" fill="#94A3B8">Dual Linux VPS Nodes · Hardware CRC16 Validation</text>
+    <text x="16" y="84" class="mono" font-size="10.5" fill="#FBCFE8">▸ 3,333 Main Commits │ 4 Actuator Relays Automated</text>
+    <text x="16" y="98" class="mono" font-size="9.5" fill="#64748B">Enterprise Documentation: PRD · SDD · OpenAPI Specs</text>
+  </g>
+
+  <!-- ================= CENTRAL 3D ARCHITECTURAL MONOLITH ================= -->
+  <g transform="translate(445, 125)" filter="url(#dropShadow3D)">
+    <!-- 3D Monolith Base Pillar -->
+    <polygon points="155,0 310,45 310,110 155,150 0,110 0,45" fill="url(#cardGradDark)" stroke="#0284C7" stroke-width="1.5"/>
+    <!-- 3D Top Surface -->
+    <polygon points="155,0 310,45 155,90 0,45" fill="url(#coreTopGrad)" stroke="#38BDF8" stroke-width="2"/>
+    <!-- Left Shaded Facet -->
+    <polygon points="0,45 155,90 155,150 0,110" fill="#081220" opacity="0.6"/>
+    <!-- Right Shaded Facet -->
+    <polygon points="155,90 310,45 310,110 155,150" fill="#040B15" opacity="0.8"/>
+
+    <!-- Holographic Concentric Rings (Centered at 155, 45) -->
+    <ellipse cx="155" cy="45" rx="115" ry="38" fill="none" stroke="#38BDF8" stroke-width="1.2" stroke-dasharray="12 6" opacity="0.75"/>
+    <ellipse cx="155" cy="45" rx="75" ry="25" fill="none" stroke="#7DD3FC" stroke-width="1" stroke-dasharray="6 4" opacity="0.6"/>
+    <circle cx="155" cy="45" r="14" fill="#38BDF8" class="live-pulse" filter="url(#neonCore)"/>
+    <circle cx="155" cy="45" r="6" fill="#FFFFFF"/>
+
+    <!-- Monolith Identity Overlay -->
+    <rect x="25" y="98" width="260" height="46" rx="6" fill="#0B1322" stroke="#1E3A5F" stroke-width="1.2"/>
+    <text x="155" y="116" class="mono" font-size="12" font-weight="800" fill="#38BDF8" text-anchor="middle" letter-spacing="0.5">CORE ARCHITECTURE &amp; EVENT BUS</text>
+    <text x="155" y="133" class="sans" font-size="11.5" font-weight="700" fill="#FFFFFF" text-anchor="middle">Jeremy Darrell Andreas [JexyDev]</text>
+  </g>
+
+  <!-- ================= PRODUCTION LIVE DELIVERY NODE ================= -->
+  <g transform="translate(390, 325)" filter="url(#dropShadow3D)">
+    <rect width="420" height="52" rx="8" fill="#05251C" stroke="#059669" stroke-width="1.5"/>
+    <circle cx="24" cy="26" r="6" fill="#10B981" class="live-pulse" filter="url(#neonCore)"/>
+
+    <text x="42" y="22" class="mono" font-size="12.5" font-weight="800" fill="#34D399" letter-spacing="0.5">PRODUCTION LIVE DELIVERY &amp; SCALE</text>
+    <text x="42" y="40" class="sans" font-size="11" fill="#A7F3D0">berseka.id (Production VPS) · 3,700+ Commits Total · Zero Municipal Downtime</text>
+
+    <!-- Verified Badge Pill -->
+    <rect x="315" y="12" width="90" height="26" rx="6" fill="#064E3B" stroke="#10B981" stroke-width="1"/>
+    <text x="360" y="29" class="mono" font-size="10.5" font-weight="800" fill="#6EE7B7" text-anchor="middle">VERIFIED</text>
+  </g>
+
+  <!-- ================= BOTTOM LIFECYCLE STAGE INDICATOR STRIP ================= -->
+  <g transform="translate(50, 400)">
+    <rect width="1100" height="34" rx="6" fill="#0B1322" stroke="#1E2E4A" stroke-width="1"/>
+
+    <!-- Step 1 -->
+    <text x="75" y="21" class="mono" font-size="10" font-weight="700" fill="#94A3B8" text-anchor="middle">01 DISCOVER</text>
+    <text x="165" y="22" class="mono" font-size="12" fill="#38BDF8" text-anchor="middle">→</text>
+
+    <!-- Step 2 -->
+    <text x="260" y="21" class="mono" font-size="10" font-weight="700" fill="#94A3B8" text-anchor="middle">02 ARCHITECT</text>
+    <text x="355" y="22" class="mono" font-size="12" fill="#38BDF8" text-anchor="middle">→</text>
+
+    <!-- Step 3 -->
+    <text x="450" y="21" class="mono" font-size="10" font-weight="700" fill="#94A3B8" text-anchor="middle">03 IMPLEMENT</text>
+    <text x="545" y="22" class="mono" font-size="12" fill="#38BDF8" text-anchor="middle">→</text>
+
+    <!-- Step 4 -->
+    <text x="640" y="21" class="mono" font-size="10" font-weight="700" fill="#94A3B8" text-anchor="middle">04 VERIFY (TDD)</text>
+    <text x="735" y="22" class="mono" font-size="12" fill="#38BDF8" text-anchor="middle">→</text>
+
+    <!-- Step 5 -->
+    <text x="830" y="21" class="mono" font-size="10" font-weight="700" fill="#94A3B8" text-anchor="middle">05 ISO AUDIT</text>
+    <text x="925" y="22" class="mono" font-size="12" fill="#10B981" text-anchor="middle">→</text>
+
+    <!-- Step 6 (Active Target) -->
+    <rect x="970" y="5" width="115" height="24" rx="4" fill="#064E3B" stroke="#10B981" stroke-width="1"/>
+    <circle cx="985" cy="17" r="3.5" fill="#34D399" class="live-pulse"/>
+    <text x="1035" y="21" class="mono" font-size="10" font-weight="800" fill="#A7F3D0" text-anchor="middle">06 DEPLOY</text>
+  </g>
+
+  <!-- Bottom Cyber Baseline Accent -->
+  <rect x="0" y="446" width="1200" height="4" fill="url(#cyanGlow)"/>
 </svg>
