@@ -96,15 +96,31 @@ The 83 Prisma models map directly to 12 production domain areas:
 - **Problem:** A Camat (District Head), Lurah (Subdistrict Head), RW Leader, and student intern all access the same API endpoints, but must only view records within their exact administrative boundary.
 - **Solution:** Implemented `dataScopeMiddleware.ts` and `camatLurahScoping` guards that dynamically inject geographic filters (`kelurahanId`, `rwId`, `schoolId`) directly into Prisma query predicates at the infrastructure layer, making horizontal privilege escalation structurally impossible.
 
-### Challenge 2: Concurrency & Double-Spend in Citizen Point Allocations
+### Challenge 2: Anti-Mock GPS Geofencing Defense for Field Attendance
+- **Problem:** University KKN students deployed across Coblong District occasionally used mock location software (Fake GPS) to spoof attendance at community posko points.
+- **Solution:** Implemented backend **Haversine Great-Circle Distance** calculation with dynamic polygonal bounding boxes and a 15-meter buffer radius:
+  $$\text{dist} = 2R \cdot \arcsin\left(\sqrt{\sin^2\left(\frac{\Delta \phi}{2}\right) + \cos(\phi_1)\cos(\phi_2)\sin^2\left(\frac{\Delta \lambda}{2}\right)}\right)$$
+  Paired with multi-factor anti-spoofing heuristics (detecting mock provider flags, client-server timestamp skew, and impossible geographic speed anomalies) and automated reconciliation auditing scripts.
+
+### Challenge 3: Concurrency & Double-Spend in Citizen Point Allocations
 - **Problem:** High-volume waste deposits at community centers could trigger race conditions, allowing citizens to duplicate point claims before ledger commits.
 - **Solution:** Designed a centralized, transactional point service (`centralizedPoints.ts`) leveraging PostgreSQL isolation levels and strict database-level unique constraints. All point movements record immutable debit/credit entries in `BankSampahLedger`.
 
-### Challenge 3: Heavy Background Job Offloading
-- **Problem:** Generating PDF activity certificates, processing spatial turf calculations, and archiving audit logs degraded API response times under high concurrency.
-- **Solution:** Integrated **BullMQ with Redis 7** to process resource-intensive tasks asynchronously. The API returns immediate HTTP 202 status codes while background workers handle computation with retry exponential backoff.
+### Challenge 4: Heavy Background Job Offloading (Async E-Certificates)
+- **Problem:** Generating high-resolution vector PDF activity certificates with academic transcripts and processing spatial calculations on the main thread blocked the Node.js event loop under high concurrency.
+- **Solution:** Integrated **BullMQ with Redis 7** to process resource-intensive tasks asynchronously. The API returns immediate HTTP 202 status codes while background workers handle 2-page document compilation and dynamic QR verification (`/verify/:certificateId`).
 
-### Challenge 4: Resilient Offline & Low-Bandwidth Field Operations
+### Challenge 5: Fault-Tolerant Streaming Ingestion for Municipal Excel Datasets
+- **Problem:** Municipal demographic datasets containing thousands of household records arrived with inconsistent headers and non-standard cell formatting, frequently crashing bulk upload scripts.
+- **Solution:** Constructed a chunked streaming XLSX parser using Zod schema validation per row, wrapped inside atomic database transactions (`prisma.$transaction`). Violations trigger clean rollbacks (0 orphaned records) with line-by-line error mapping.
+
+### Challenge 6: Cryptographic Tamper-Evident Audit Trail
+- **Problem:** Regulatory compliance required that waste weight logs and student evaluation mutations be provably auditable without risk of retroactive database modification.
+- **Solution:** Built an internal **SHA-256 Hash Chain** on all critical mutation records:
+  $$\text{Hash}_n = \text{SHA256}(\text{Hash}_{n-1} + \text{Timestamp} + \text{UserID} + \text{Payload})$$
+  Any unauthorized row modification breaks the cryptographic verification chain, immediately surfacing audit alarms.
+
+### Challenge 7: Resilient Offline & Low-Bandwidth Field Operations
 - **Problem:** University students and field waste collectors frequently operate in low-connectivity environments where network dropouts are frequent.
 - **Solution:** Built client-side caching with Zustand and local storage, paired with automatic request retries and client-side image compression (`browser-image-compression`) before multipart uploads, reducing cellular payload sizes by over 80%.
 

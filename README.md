@@ -12,135 +12,67 @@
 
 ---
 
-## Executive Engineering Summary
+## 👨‍💻 Executive Engineering Profile
 
-I am **Jeremy Darrell Andreas** (`JexyDev`) — a Fullstack Software Engineer, Distributed Systems Builder, and Hardware IoT Developer from Indonesia. 
+I am **Jeremy Darrell Andreas** (`JexyDev`) — a Fullstack Software Engineer, Distributed Systems Builder, and Hardware IoT Developer from Indonesia (SMK Wikrama Bogor alumnus).
 
 > **Engineering Philosophy:** `Vibing Code > Vibe Code.`  
-> I don't write disposable AI prompts, toy CRUD tutorials, or resume-driven abstractions. I engineer battle-tested software systems designed to survive real-world chaos: spotty cellular connectivity in rural districts, student GPS spoofing, concurrent database race conditions, and physical Modbus RS485 serial communication frames.
+> I engineer production software designed to survive real-world constraints: spotty field connectivity, concurrent race conditions, student GPS spoofing, and physical Modbus RS485 serial communication frames.
 
-As a student developer at **SMK Wikrama Bogor** (PPLG) working with **PT. Makerindo Prima Solusi** and **Universitas Komputer Indonesia (UNIKOM)**, I stepped up to become the **#1 Top Contributor** on the enterprise municipal platform **BERSEKA (`berseka.id`)**, authoring **1,437 non-merge commits (45.5% of total team output)** and **2,016+ total commits** across an active 302,189-line TypeScript monorepo.
-
-```
-╔═══════════════════════════════════════════════════════════════════════════════════════╗
-║                      THE CYNICAL-EMPATHIC CRITICAL THINKER                            ║
-╠═══════════════════════════════════════════════════════════════════════════════════════╣
-║  • Cynical Realism  : Assume network drops, malicious payloads, concurrency races,   ║
-║                       and GPS mock locations are inevitable. Build defensive,         ║
-║                       zero-trust, idempotent systems with strict transaction rollback.║
-║  • Human Empathy    : Code is for real people under real pressure. In municipal apps, ║
-║                       an unhandled 500 error strands field officers in the rain. In   ║
-║                       IoT agriculture, dropped frames ruin crops. Resilient UX is    ║
-║                       human empathy.                                                  ║
-║  • Empirical Rigor  : Zero tolerance for AI slop or hand-waving architecture. Every   ║
-║                       claim must be backed by compiler checks, test matrices, git     ║
-║                       logs, and reproducible production telemetry.                    ║
-╚═══════════════════════════════════════════════════════════════════════════════════════╝
-```
+As lead developer at **PT. Makerindo Prima Solusi** in collaboration with **Universitas Komputer Indonesia (UNIKOM)**, I served as the **#1 Top Contributor** on the enterprise municipal platform **BERSEKA (`berseka.id`)**, authoring **1,437 non-merge commits (45.5% of total team output)** and **2,016+ total commits** across an active 302,189-line TypeScript monorepo.
 
 ---
 
-## 🏛️ Flagship Production System: BERSEKA (`berseka.id`)
+## 🏛️ Production Systems At A Glance
 
-> **Municipal Smart Waste Governance & Academic Field-Service Lifecycle Platform**  
-> **Collaborators:** PT. Makerindo Prima Solusi × Universitas Komputer Indonesia (UNIKOM)  
-> **Operational Scope:** Coblong District, Bandung, West Java (Piloted across dozens of RWs, hundreds of KKN Tematik students, and municipal officers).  
-> **Live Deployments:** [Production (berseka.id)](https://berseka.id) · [Staging (staging.berseka.id)](https://staging.berseka.id) · [Private Codebase (JexyDev/Pilah-Sampah-Cerdas)](https://github.com/JexyDev/Pilah-Sampah-Cerdas)
-
-<p align="center">
-  <img src="./assets/berseka-architecture.png" alt="BERSEKA C4 High-Level System Architecture" width="90%"/>
-  <br/>
-  <sub><i>Figure 1: High-Level C4 Container Architecture of the BERSEKA Monorepo Ecosystem.</i></sub>
-</p>
-
-### 📊 Verified Forensic Engineering Metrics
-
-| Architecture Metric | Verified Production Value | Technical Significance |
-|:---|:---|:---|
-| **Personal Git Output** | **1,437 non-merge commits (45.5% of team)** | **Top Contributor #1** in monorepo history (2,016+ commits total) |
-| **Monorepo Commits** | **3,333 Main / 4,119 Total Commits** | 5-month sprint with **258 midnight commits** (18:00–06:00) & **159 weekend commits** |
-| **Monorepo Code Volume** | **302,189 Lines of Code** | 563 source files (307 Express API, 256 React Web) with **0 TypeScript errors** |
-| **Prisma Relational Models** | **83 Domain Models (951+ Columns)** | Cross-linked relational schema with foreign key cascades and spatial indices |
-| **Documented REST APIs** | **659 Endpoints across 54 Route Controllers** | Strict payload validation, role-gating middleware, and unified error handler |
-| **Client Views & UX** | **67 Discrete React Views** | 8-Tier RBAC (Super Admin, Camat/Lurah, DPL, Mahasiswa, RT/RW, Petugas, Warga) |
-| **Async Queues & Workers** | **BullMQ + Redis 7** | Non-blocking background PDF generation, quota limiters, and cache invalidation |
-| **Live VPS Environments** | **2 Ubuntu VPS Nodes** | Automated GitHub Actions CI/CD deploying to Staging & Production via PM2 Cluster |
-
----
-
-### ⚡ 5 Hard Engineering Challenges & How I Solved Them
-
-#### 1. Anti-Mock GPS Geofencing Defense for Field Attendance
-* **The Problem:** University KKN students deployed across Coblong District occasionally used mock location software (Fake GPS) to spoof attendance at community posko points.
-* **My Solution:**
-  1. Implemented backend **Haversine Great-Circle Distance** verification with dynamic polygonal bounding boxes and a 15-meter buffer radius:
-     $$\text{dist} = 2R \cdot \arcsin\left(\sqrt{\sin^2\left(\frac{\Delta \phi}{2}\right) + \cos(\phi_1)\cos(\phi_2)\sin^2\left(\frac{\Delta \lambda}{2}\right)}\right)$$
-  2. Built multi-factor spoofing heuristics: detecting mock provider flags, client-vs-server timestamp drift, and impossible geographic velocity jumps.
-  3. Created automated reconciliation scripts (`apps/api/scripts/verify-kelompok1-dago.ts`) that audit historical logs and purge fraudulent timestamps.
-
-#### 2. Asynchronous Multi-Page E-Certificate PDF Generator with Public Dynamic QR
-* **The Problem:** Generating hundreds of official 2-page completion certificates with academic transcripts on the main Node.js thread caused CPU event-loop blocking and memory exhaustion.
-* **My Solution:**
-  * Offloaded vector rendering to asynchronous **BullMQ** job workers backed by **Redis 7**.
-  * Structured high-precision 2-page document compilation (Page 1: Official Municipal Diploma, Page 2: Full Posko Hours Transcript).
-  * Implemented an unauthenticated public verification endpoint (`/verify/:certificateId`) allowing employers and municipal officers to scan the dynamic QR code and instantly verify document authenticity against cryptographic database hashes.
-
-#### 3. Dual-Weighted Academic Evaluation Engine (60:40 Formula)
-* **The Problem:** Discrepancies between daily field activity logs and final faculty reviews led to subjective and contested academic grades.
-* **My Solution:**
-  * Engineered an immutable grading pipeline:
-    $$\text{FinalScore} = (0.60 \times \text{DailyActivityRatio}) + (0.40 \times \text{FacultyRubric})$$
-  * Enforced strict state transitions: once a grade is locked to `FINAL`, database records become immutable to prevent retroactive grade tampering.
-
-#### 4. Fault-Tolerant Streaming Ingest for Municipal Excel Datasets
-* **The Problem:** Municipal demographic datasets containing thousands of household records arrived with messy formatting, irregular headers, and missing keys, crashing typical batch scripts.
-* **My Solution:**
-  * Built a chunked streaming XLSX parser validating row-by-row payloads against strict **Zod** schemas.
-  * Wrapped all database operations in atomic `prisma.$transaction` blocks. If any row violates relational integrity, the transaction cleanly rolls back (0 orphaned records) and outputs an exact line-by-line error map.
-
-#### 5. Cryptographic Tamper-Evident Audit Trail
-* **The Problem:** Municipal compliance required that waste weight logs and student evaluation mutations be provably auditable without risk of retroactive database modification.
-* **My Solution:**
-  * Built an internal **SHA-256 Hash Chain** on all critical mutation records:
-    $$\text{Hash}_n = \text{SHA256}(\text{Hash}_{n-1} + \text{Timestamp} + \text{ActorID} + \text{Payload})$$
-  * Any direct database tampering breaks the hash chain, immediately raising verification alarms.
-
----
-
-## 🌾 Hardware & Industrial IoT: Bitanic
-
-> **Vocational Smart Precision Agriculture LMS & Industrial IoT Workstation (ATPH 4.0)**  
-> **Repository:** [github.com/JexyDev/Bitanic](https://github.com/JexyDev/Bitanic) (Private)  
-> **Hardware Target:** Fleet of laboratory IoT Trainer Kits (`BITANIC-TK-01` through `BITANIC-TK-06`)
+### 1. BERSEKA — Municipal Smart Waste & Academic Field Lifecycle Platform (`berseka.id`)
+> **Core Essence:** Smart city waste sorting governance integrated with university KKN Tematik field operations across Coblong District, Bandung, West Java.
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────────────────────┐
-│ VERIFIED METRICS : 37 Eloquent Models │ 41 Migrations │ Modbus RS485 RTU │ 7-in-1 Soil Sensor│
-│ 4 Relays Actuated: Zero-IDOR Tenancy  │ Collision-Free Lab Booking via Pessimistic Locking  │
+│ SCALE : 302,189 LoC │ 83 Prisma Models │ 659 REST APIs │ 3,333 Main Commits (4,119 Total)   │
+│ IMPACT: Top Contributor #1 (1,437 Non-Merge Commits / 45.5% of Team) │ 2 Live VPS Nodes     │
 └─────────────────────────────────────────────────────────────────────────────────────────────┘
 ```
 
-- **Hardware Protocol:** Direct serial communication over **Modbus RS485 RTU** with strict **CRC16** checksum calculation and frame validation.
-- **Sensor Telemetry:** Ingests 7-in-1 industrial soil chemistry frames: pH, Electrical Conductivity (EC), Moisture, Temperature, Nitrogen (N), Phosphorus (P), and Potassium (K).
-- **Actuator Control:** Automated precision relay actuation (Irrigation Valve, Mist Generator, Nutrient Pump A, Nutrient Pump B).
-- **Concurrency & Scheduling:** Solved physical hardware contention by implementing pessimistic database locking (`lockForUpdate`) on PostgreSQL 17, preventing double-booking of physical lab workstations.
-- **Stack:** `Laravel 12` · `PHP 8.2+` · `PostgreSQL 17` · `Tailwind CSS v4` · `Vite` · `Docker`
+* **Anti-Mock GPS Geofencing:** Backend Haversine distance verification with 15m dynamic buffers, client-server timestamp skew auditing, and velocity checks to eliminate field attendance spoofing.
+* **Asynchronous E-Certificates:** BullMQ + Redis background workers rendering vector PDFs with unauthenticated dynamic QR verification (`/verify/:id`).
+* **Streaming Dataset Ingestion:** Chunked XLSX streaming parser with row-by-row Zod schema validation and atomic `prisma.$transaction` rollback (0 orphaned records).
+* **Cryptographic Audit Trail:** SHA-256 hash-chained mutation history preventing retroactive data tampering.
+* **Stack:** `TypeScript Strict` · `Node.js 22 LTS` · `Express.js` · `React 19` · `Prisma ORM` · `PostgreSQL 15` · `Redis 7` · `BullMQ` · `Docker` · `Nginx`
+* **Artifacts & Proof:** [👉 Read Complete Architectural Case Study (BERSEKA_CASE_STUDY.md)](./BERSEKA_CASE_STUDY.md) · [Live Production (berseka.id)](https://berseka.id) · [C4 Architecture Diagram](./assets/berseka-architecture.png)
 
 ---
 
-## 📱 Mobile Commerce: Bogor Tolo
+### 2. Bitanic — Vocational Precision Agriculture LMS & Industrial IoT Workstation
+> **Core Essence:** Vocational smart farming LMS (ATPH 4.0) with real-time laboratory Trainer Kit hardware control (`BITANIC-TK-01` to `06`).
 
-> **Hyperlocal SME Marketplace & Digital Storefront Ecosystem**  
-> **Repositories:** [github.com/JexyDev/tolo_app](https://github.com/JexyDev/tolo_app) (Mobile) · [github.com/JexyDev/tolo-api](https://github.com/JexyDev/tolo-api) (Backend)
+```
+┌─────────────────────────────────────────────────────────────────────────────────────────────┐
+│ HARDWARE: Modbus RS485 RTU │ CRC16 Checksum │ 7-in-1 Soil Sensor │ 4 Actuator Relays        │
+│ BACKEND : 37 Eloquent Models │ 41 Migrations │ Pessimistic Row Locking (`lockForUpdate`)    │
+└─────────────────────────────────────────────────────────────────────────────────────────────┘
+```
 
-- **Architecture:** Cross-platform **Flutter** (iOS & Android) mobile application utilizing **Riverpod** state management, communicating with a decoupled **Laravel REST API** and administrative web dashboard.
-- **Core Features:** Real-time product indexing, merchant digital storefronts, order tracking, and regional inventory synchronization for traditional merchants in Bogor, West Java.
+* **Industrial Hardware Protocol:** Direct serial communication via **Modbus RS485 RTU** with strict **CRC16** frame validation.
+* **Multi-Parameter Sensor Acquisition:** Continuous telemetry ingestion for soil pH, Electrical Conductivity (EC), Moisture, Temperature, Nitrogen (N), Phosphorus (P), and Potassium (K).
+* **Actuator Control Logic:** Automated relay switching for irrigation valves, mist generators, and dual nutrient dosing pumps.
+* **Concurrency Protection:** PostgreSQL pessimistic row locking (`lockForUpdate`) eliminating hardware double-booking conflicts.
+* **Stack:** `Laravel 12` · `PHP 8.2+` · `PostgreSQL 17` · `Tailwind CSS v4` · `Docker`
 
 ---
 
-## 🌐 Interactive 3D WebGL Systems Showcase
+### 3. Bogor Tolo — Hyperlocal SME Digital Marketplace
+> **Core Essence:** Regional e-commerce mobile application and administration portal empowering local merchants in Bogor, West Java.
 
-To visualize distributed micro-architectures, data conduits, and state machines in a visceral, spatial format, I engineered an interactive 3D WebGL studio:
+* **Client Platforms:** Cross-platform **Flutter** (iOS & Android) mobile application utilizing **Riverpod** state management.
+* **Backend Services:** Decoupled **Laravel REST API** backend with token-based authentication and administrative inventory portal.
+* **Stack:** `Flutter` · `Dart` · `Riverpod` · `Laravel` · `PHP` · `MySQL / PostgreSQL` · `REST API`
+
+---
+
+### 4. Interactive 3D WebGL Systems Studio
+> **Core Essence:** An interactive 3D WebGL spatial visualizer engineered with Three.js and React Three Fiber to visualize distributed micro-architectures and state machines in real time.
 
 <p align="center">
   <a href="https://jexydev.github.io/jexydev-3d-studio/" target="_blank">
@@ -148,31 +80,61 @@ To visualize distributed micro-architectures, data conduits, and state machines 
   </a>
 </p>
 
-> **3D Studio Stack:** Vite · React 18 · TypeScript Strict · Three.js (`@react-three/fiber`, `@react-three/drei`) · Dynamic Camera Rig with frame-rate independent exponential easing · Articulated character models · Particle conduits · Deployed live on **[GitHub Pages](https://jexydev.github.io/jexydev-3d-studio/)**.
+* **Stack:** `Vite` · `React 18` · `TypeScript Strict` · `Three.js` · `@react-three/fiber` · `@react-three/drei` · Deployed on **[GitHub Pages](https://jexydev.github.io/jexydev-3d-studio/)**.
 
 ---
 
-## 🛠️ Comprehensive Technical Skills Matrix
+## 🛠️ Specialized Technical Skills Matrix
 
-| Engineering Domain | Primary Technologies & Tooling | Production Proof & Implementation |
-|:---|:---|:---|
-| **Backend & APIs** | **Node.js, Express.js, TypeScript, Laravel 12, PHP 8.2+, REST APIs** | 659 endpoints in BERSEKA, 37 models in Bitanic, 54 route controllers, strict payload validation |
-| **Databases & Cache** | **PostgreSQL (15/17), Prisma ORM, Eloquent, Redis 7, BullMQ** | 83 relational models, 951+ columns, pessimistic locking (`lockForUpdate`), atomic `$transaction` |
-| **Frontend & Mobile** | **React 18/19, Vite, Flutter, Dart, Tailwind CSS, Leaflet GIS, Zustand** | 67 views in BERSEKA, cross-platform mobile apps in Bogor Tolo, geospatial boundary mapping |
-| **Hardware & IoT** | **Modbus RS485 RTU, Serial Frames, CRC16 Checksums, Sensor Telemetry** | 7-in-1 soil chemistry sensor telemetry & 4 automated relay actuators in Bitanic |
-| **DevOps & Infra** | **Docker, Docker Compose, Linux Ubuntu VPS, Nginx, GitHub Actions CI/CD** | 2 live production VPS nodes (`berseka.id`), PM2 cluster mode, SSL termination, automated CI pipelines |
-| **Quality & Standards** | **Vitest, Jest, PHPUnit, Zod, ESLint, ISO/IEC 25010 Framework** | 73 automated test suites, zero TypeScript errors across 302K+ LoC monorepo |
+### 1. Distributed Backend Engineering & High-Throughput APIs
+* **High-Throughput RESTful API Architecture** (Express.js, TypeScript Strict, Route-Controller-Service pattern)
+* **Enterprise MVC & Action-Domain-Responder** (Laravel 12, PHP 8.2+)
+* **Event-Driven Asynchronous Queues & Worker Pools** (BullMQ, Redis 7)
+* **Strict Schema Contracts & Payload Sanitization** (Zod, Type Guards, Joi)
+* **Defensive Rate Limiting & Multi-Tier RBAC** (14-Role dynamic permission gates, JWT rotation)
+
+### 2. Database Architecture & Concurrency Control
+* **Relational Data Modeling & Spatial Indices** (PostgreSQL 15/17)
+* **Enterprise ORM & Migration Management** (Prisma ORM, Eloquent ORM)
+* **Pessimistic Concurrency Locking** (`lockForUpdate`, race condition mitigation)
+* **ACID Transactional Integrity & Rollback Guards** (`prisma.$transaction`, atomic batch rollbacks)
+* **In-Memory Caching & Session Stores** (Redis 7)
+
+### 3. Modern Reactive Client Systems & Cross-Platform Mobile
+* **Reactive Single-Page Applications (SPA)** (React 18/19, Vite, TypeScript)
+* **Cross-Platform Mobile Application Development** (Flutter, Dart, Riverpod State Management)
+* **Geospatial Data Engineering & GIS Mapping** (Leaflet.js, OpenStreetMap, GeoJSON, Turf.js)
+* **Utility-First Styling & Design Systems** (Tailwind CSS v4)
+* **Client-Side Media Compression & Resilient Offline State** (Zustand, LocalStorage, Canvas processing)
+
+### 4. Industrial IoT, Telemetry & Hardware Protocol Engineering
+* **Industrial Serial Communication Protocols** (Modbus RS485 RTU)
+* **Hardware Telemetry Ingestion & Packet Verification** (CRC16 Frame Checksums)
+* **Multi-Parameter Sensor Acquisition** (7-in-1 Soil Chemistry: pH, EC, Temp, Moisture, N, P, K)
+* **Actuator Automation & Relay Switching Logic** (Irrigation, Misting, Nutrient Dosing)
+
+### 5. Systems Reliability, Security & Heuristics
+* **Geospatial Anti-Spoofing Heuristics** (Haversine Great-Circle validation, Mock Provider detection)
+* **Cryptographic Audit Trails & Tamper Detection** (SHA-256 Hash Chaining)
+* **Automated Testing & Static Analysis** (Vitest, Jest, PHPUnit, ESLint, TypeScript Compiler)
+* **Defensive Architecture Standards** (Zero-IDOR horizontal privilege protection, SQL injection prevention)
+
+### 6. Cloud Infrastructure, Linux Systems & Automated CI/CD
+* **Containerization & Reproducible Environments** (Docker, Docker Compose)
+* **Linux Server Administration & Process Supervision** (Ubuntu VPS, PM2 Cluster Mode, Nginx Reverse Proxy, SSL)
+* **Automated Multi-Tier CI/CD Workflows** (GitHub Actions Staging & Production Continuous Deployment)
+* **Monorepo Governance & Branching Strategies** (3-Tier Git branching: `dev → staging → main`, NPM Workspaces)
 
 ---
 
-## 📊 Real Engineering Telemetry & Activity
+## 📊 Verified Engineering Telemetry & Activity
 
 <!-- TELEMETRY:START -->
 ```
 ╔═══════════════════════════════════════════════════════════════════════════════════════╗
 ║                   JEXYDEV // SYSTEM TELEMETRY & WORKSPACE PULSE                       ║
 ╠═══════════════════════════════════════════════════════════════════════════════════════╣
-║  Last Synchronized : 22 Nov 2026, 05:46:52 UTC │ 22 Nov 2026, 12:46:52 WIB            ║
+║  Last Synchronized : 23 Nov 2026, 01:43:07 UTC │ 23 Nov 2026, 08:43:07 WIB            ║
 ║  Lifecycle Velocity: 3,700+ Production Commits Across Repositories (Full Performance) ║
 ║  Codebase Scale    : 302,189 LoC · 83 Prisma Models · 659 API Endpoints (berseka.id)  ║
 ║  Hardware Telemetry: Modbus RS485 RTU · CRC16 · 4 Relays Automated (Bitanic)          ║
